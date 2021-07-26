@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import './components/pages/home/lit-home.js';
 import './components/pages/login/lit-login.js';
-import { router } from './router/index.js';
+import './components/pages/home/lit-home.js';
+import { router, routes } from './router/index.js';
 
 // const locationChange = (location) => {
 //   const { pathName } = location;
@@ -55,10 +55,7 @@ export class App extends LitElement {
 
   constructor() {
     super();
-    this.router = router(this, {
-      '/': () => html`<lit-home></lit-home>`,
-      '/login': () => html`<lit-login></lit-login>`,
-    });
+    this.router = router(this, routes);
   }
 
   render() {

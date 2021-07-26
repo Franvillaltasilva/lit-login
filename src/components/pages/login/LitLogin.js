@@ -47,9 +47,14 @@ export class LitLogin extends LitElement {
     `;
   }
 
-  // constructor() {
-  //   super();
-  // }
+  constructor() {
+    super();
+  }
+
+   navigateTo(path) {
+    window.location.pathname = path;
+  }
+
 
   render() {
     return html`
@@ -57,9 +62,10 @@ export class LitLogin extends LitElement {
       <lit-input placeholder="Email"></lit-input>
       <lit-input placeholder="Password" type="password"></lit-input>
 
-      <lit-button>Log In</lit-button>
+      <lit-button @click="${() => this.navigateTo('/home')}" >Log In</lit-button>
 
       <lit-counter></lit-counter>
     `;
   }
+
 }
