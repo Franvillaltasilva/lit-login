@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit';
 export class LitCounter extends LitElement {
   static get properties() {
     return {
-      name: { type: String },
+      time: { type: Number },
     };
   }
 
@@ -15,11 +15,10 @@ export class LitCounter extends LitElement {
 
   constructor() {
     super();
-    this.name = 'lock-outline'
+    this.time = ''
   }
 
   render() {
-    const ROUTE = '../assets/icons/';
     return html`
       Counter
     `;

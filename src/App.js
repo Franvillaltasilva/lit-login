@@ -1,8 +1,18 @@
 import { LitElement, html, css } from 'lit';
-import { LitButton } from './components/lit-button.js';
-import { LitInput } from './components/lit-input.js';
+import './components/pages/home/lit-home.js';
+import './components/pages/login/lit-login.js';
+import { router } from './router/index.js';
 
-export class LitLogin extends LitElement {
+// const locationChange = (location) => {
+//   const { pathName } = location;
+//   const urlParts = pathName.split('/');
+//   urlParts.shift();
+//   console.log(urlParts);
+//   debugger;
+// }
+
+// initRouter(locationChange);
+export class App extends LitElement {
   static get properties() {
     return {
       title: { type: String },
@@ -16,7 +26,7 @@ export class LitLogin extends LitElement {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         font-size: calc(10px + 2vmin);
         color: #1a2b42;
         max-width: 960px;
@@ -29,6 +39,7 @@ export class LitLogin extends LitElement {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
+        justify-content: center;
       }
 
       .app-footer {
@@ -44,19 +55,19 @@ export class LitLogin extends LitElement {
 
   constructor() {
     super();
-    this.title = 'My app';
+    this.router = router(this, {
+      '/': () => html`<lit-home></lit-home>`,
+      '/login': () => html`<lit-login></lit-login>`,
+    });
   }
 
   render() {
     return html`
       <main>
-        <h1>${this.title}</h1>
-        <lit-input placeholder="Email"></lit-input>
-        <lit-input placeholder="Password" type="password"></lit-input>
-
-        <lit-button>
-          Log In
-        </lit-button>
+        ${this.router.render({
+          pending: () => html`<p>loading page...</p>`,
+          complete: (result) => result,
+        })}
       </main>
     `;
   }
