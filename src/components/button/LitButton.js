@@ -18,6 +18,10 @@ export class LitButton extends LitElement {
         color: #fff;
         padding: 12px 10px;
       }
+
+      button:hover {
+        background-color: #0160b3;
+      }
     `;
   }
 
@@ -32,4 +36,4 @@ export class LitButton extends LitElement {
       </button>
     `;
   }
-}customElements.define('lit-button', LitButton);
+}

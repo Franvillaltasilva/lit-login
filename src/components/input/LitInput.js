@@ -20,6 +20,10 @@ export class LitInput extends LitElement {
         min-width: 244px;
         box-sizing: fit-content;
       }
+
+      input:focus {
+        border-bottom: 2px solid #004481;
+      }
     `;
   }
 
@@ -34,4 +38,4 @@ export class LitInput extends LitElement {
       <input placeholder="${this.placeholder}" type="${this.type}"/>
     `;
   }
-}customElements.define('lit-input', LitInput);
+}
