@@ -12,7 +12,7 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
   // esbuildTarget: 'auto'
 
   /** Set appIndex to enable SPA routing */
-  // appIndex: 'demo/index.html',
+  appIndex: './index.html',
 
   /** Confgure bare import resolve plugin */
   // nodeResolve: {
@@ -24,5 +24,8 @@ export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
     // hmr && hmrPlugin({ exclude: ['**/*/node_modules/**/*'], presets: [presets.litElement] }),
   ],
 
+  devServer: {
+    historyApiFallback: true,
+  },
   // See documentation for all available options
 });

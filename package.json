@@ -26,9 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "@lit-labs/task": "^1.0.0-rc.2",
-    "@vaadin/router": "^1.7.4",
-    "lit": "^2.0.0-rc.2",
-    "moment": "^2.29.1"
+    "lit": "^2.0.0-rc.2"
   },
   "eslintConfig": {
     "extends": [

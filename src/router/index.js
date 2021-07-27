@@ -2,8 +2,8 @@ import { Task } from '@lit-labs/task';
 import { html } from 'lit';
 
 export const routes = {
-  '/': () => html`<lit-home></lit-home>`,
-  'home': () => html`<lit-home></lit-home>`,
+  '/': () => html`<lit-login></lit-login>`,
+  '/home': () => html`<lit-home></lit-home>`,
 }
 
 export function router(host, routes) {
@@ -16,17 +16,15 @@ export function router(host, routes) {
     () => [routes]
   );
 
-  document.body.addEventListener('click', (e) => {
-    e.preventDefault();
-    const button = e.composedPath().filter(el => el.tagName === 'a')[0];
-    console.log(button);
-    window.history.pushState({}, '', button);
-    host.requestUpdate();
-  });
-  window.addEventListener('popstate', e => {
+  // document.body.addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   const button = e.composedPath().filter(el => el.tagName === 'a')[0];
+  //   window.history.pushState({}, '', button);
+  //   host.requestUpdate();
+  // });
+  // window.addEventListener('popstate', e => {
 
-  })
-
+  // })
 
   return routerTask;
 }
