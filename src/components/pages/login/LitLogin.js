@@ -1,8 +1,8 @@
 import { LitElement, html, css } from 'lit';
 import '../../atoms/button/lit-button.js';
 import '../../atoms/input/lit-input.js';
-import '../../atoms/icon/LitIcon.js';
-import '../../atoms/counter/LitCounter.js';
+import '../../atoms/icon/lit-icon.js';
+import '../../molecules/counter/LitCounter.js';
 import { navigateTo } from '../../../utils/navigation.js';
 
 
@@ -10,7 +10,9 @@ import { navigateTo } from '../../../utils/navigation.js';
 export class LitLogin extends LitElement {
   static get properties() {
     return {
-      title: { type: String },
+      email: { type: String },
+      password: { type: String },
+      user: { type: Object },
     };
   }
 
@@ -50,15 +52,41 @@ export class LitLogin extends LitElement {
 
   constructor() {
     super();
+    this.email = 'fran@fran.com';
+    this.password = '1234';
   }
 
   render() {
     return html`
       <lit-icon></lit-icon>
-      <lit-input placeholder="Email"></lit-input>
-      <lit-input placeholder="Password" type="password"></lit-input>
-      <lit-button @click="${() => navigateTo('./home')}" >Log In</lit-button>
+      <lit-input @input=${this.inputEmail} .value=${this.email} placeholder="Email"></lit-input>
+      <lit-input @input=${this.inputPassword} .value=${this.password} placeholder="Password" type="password"></lit-input>
+      <lit-button @click="${this.login}">Log In</lit-button>
     `;
   }
 
+  inputEmail(event) {
+    this.email = event.detail.value;
+  }
+
+  inputPassword(event) {
+    this.password = event.detail.value;
+  }
+
+  login() {
+    if ( localStorage.getItem(this.email) ) {
+      navigateTo('./home');
+    } else {
+      console.error('No existe usuario con dicho email')
+    }
+  }
 }
+
+/*
+localStorage.setItem('fran@fran.com', JSON.stringify({
+  email: 'fran@fran.com',
+  password: '1234',
+  lastConnection: 1627397027594
+})
+);
+*/

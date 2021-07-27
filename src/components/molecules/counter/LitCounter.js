@@ -6,8 +6,7 @@ export class LitCounter extends LitElement {
     return {
       title: { type: String },
       subtitle: { type: String },
-      time: { type: Number },
-      diff: { type: Object }
+      lastConnection: { type: Number },
     };
   }
 
@@ -37,35 +36,24 @@ export class LitCounter extends LitElement {
       font-size: 1.8em;
       margin-bottom: 4px;
     }
-
-    lit-button {
-      margin-top: 40px;
-    }
-
     `;
   }
 
   constructor() {
     super();
-    this.title = 'Welcome!'
-    this.subtitle = 'The last time you access was'
-    this.time = 1627312821;
-    const now = new Date();
-    const last =  new Date(this.time);
-    this.diff = timeDifference(now, last);
+    this.title = 'Welcome!';
+    this.subtitle = 'The last time you access was';
+    this.lastConnection = 0;
+
   }
 
   connectedCallback() {
     super.connectedCallback()
-    console.log('añadiendo counter')
+    const now = new Date();
+    const last = new Date(this.lastConnection);
+    this.diff = timeDifference(now, last);
 
   }
-
-  disconnectedCallback() {
-    super.disconnectedCallback()
-    console.log('Eliminando counter')
-  }
-
 
   render() {
     return html`
@@ -90,7 +78,6 @@ export class LitCounter extends LitElement {
             <p>seconds</p>
           </div>
         </div>
-        <lit-button href="/home">Logout</lit-button>
       </div>
     `;
   }

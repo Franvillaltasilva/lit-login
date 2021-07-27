@@ -1,10 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import './components/pages/login/lit-login.js';
 import './components/pages/home/lit-home.js';
-import './router-outlet.js';
 import { router, routes } from './router/index.js';
-// import { router } from "lit-element-router";
-// import { Router } from '@vaadin/router';
 
 // const locationChange = (location) => {
 //   const { pathName } = location;
@@ -80,17 +77,7 @@ export class App extends LitElement {
   constructor() {
     super();
     this.router = router(this, routes);
-    // this.route = "/";
-    // this.params = {};
-    // this.query = {};
   }
-
-  // router(route, params, query, data) {
-  //   this.route = route;
-  //   this.params = params;
-  //   this.query = query;
-  //   console.log(route, params, query, data);
-  // }
 
   render() {
     return html`
@@ -102,16 +89,4 @@ export class App extends LitElement {
       </main>
     `;
   }
-
-  // render() {
-  //   return html`
-  //     <main>
-  //     <router-outlet active-route=${this.route}>
-  //       <lit-login route="login"></lit-login>
-  //       <lit-home route="home"></lit-home>
-  //       <h1 route="not-found">Not Found</h1>
-  //     </router-outlet>
-  //     </main>
-  //   `;
-  // }
 }

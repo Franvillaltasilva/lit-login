@@ -5,6 +5,7 @@ export class LitInput extends LitElement {
     return {
       placeholder: { type: String },
       type: { type: String },
+      value: { type: String },
     };
   }
 
@@ -31,11 +32,25 @@ export class LitInput extends LitElement {
     super();
     this.placeholder = '';
     this.type = 'text';
+    this.value = '';
   }
 
   render() {
     return html`
-      <input placeholder="${this.placeholder}" type="${this.type}"/>
+      <input
+        type=${this.type}
+        placeholder=${this.placeholder}
+        .value=${this.value}
+        @input=${this.inputValue}
+      />
     `;
+  }
+
+  inputValue(event) {
+    this.dispatchEvent(new CustomEvent('input', {
+      bubbles: true,
+      composed: true,
+      detail: { value: event.target.value },
+    }));
   }
 }

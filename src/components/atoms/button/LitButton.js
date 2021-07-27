@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit';
 export class LitButton extends LitElement {
   static get properties() {
     return {
-      title: { type: String },
+      disabled: { type: Boolean }
     };
   }
 
@@ -22,16 +22,22 @@ export class LitButton extends LitElement {
       button:hover {
         background-color: #0160b3;
       }
+
+      button:disabled {
+        background-color: #adaeae;
+        cursor: default;
+      }
     `;
   }
 
   constructor() {
     super();
+    this.disabled = false;
   }
 
   render() {
     return html`
-      <button>
+      <button ?disabled=${this.disabled}>
         <slot></slot>
       </button>
     `;
