@@ -7,13 +7,26 @@ export const routes = {
 }
 
 export function router(host, routes) {
-  return new Task(
+  const routerTask =  new Task(
     host,
     ([routes]) => {
-      console.log(routes);
       const { pathname } = window.location;
       return routes[pathname] ? routes[pathname]() : html`No se encontró`;
     },
     () => [routes]
   );
+
+  document.body.addEventListener('click', (e) => {
+    e.preventDefault();
+    const button = e.composedPath().filter(el => el.tagName === 'a')[0];
+    console.log(button);
+    window.history.pushState({}, '', button);
+    host.requestUpdate();
+  });
+  window.addEventListener('popstate', e => {
+
+  })
+
+
+  return routerTask;
 }

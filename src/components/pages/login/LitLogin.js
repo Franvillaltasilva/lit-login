@@ -3,6 +3,7 @@ import '../../atoms/button/lit-button.js';
 import '../../atoms/input/lit-input.js';
 import '../../atoms/icon/LitIcon.js';
 import '../../atoms/counter/LitCounter.js';
+import { navigateTo } from '../../../utils/navigation.js';
 
 
 // initRouter(locationChange);
@@ -51,20 +52,12 @@ export class LitLogin extends LitElement {
     super();
   }
 
-   navigateTo(path) {
-    window.location.pathname = path;
-  }
-
-
   render() {
     return html`
       <lit-icon></lit-icon>
       <lit-input placeholder="Email"></lit-input>
       <lit-input placeholder="Password" type="password"></lit-input>
-
-      <lit-button @click="${() => this.navigateTo('/home')}" >Log In</lit-button>
-
-      <lit-counter></lit-counter>
+      <lit-button @click="${() => navigateTo('./home')}" >Log In</lit-button>
     `;
   }
 

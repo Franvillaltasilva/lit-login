@@ -27,7 +27,7 @@ export class LitCounter extends LitElement {
       color: #7d7d7d;
     }
     .time-box {
-      margin-top: 32px;
+      margin: 32px 0px;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 8px;
@@ -55,6 +55,16 @@ export class LitCounter extends LitElement {
     this.diff = timeDifference(now, last);
   }
 
+  connectedCallback() {
+    super.connectedCallback()
+    console.log('añadiendo counter')
+
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    console.log('Eliminando counter')
+  }
 
 
   render() {

@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import '../../atoms/button/lit-button.js';
-import '../../atoms/counter/lit-counter.js';
+import '../../molecules/counter/lit-counter.js';
 
 
 // initRouter(locationChange);
