@@ -1,30 +1,47 @@
-<p align="center">
-  <img width="200" src="https://open-wc.org/hero.png"></img>
-</p>
+## Lit Login
 
-## Open-wc Starter App
+![Built with open-wc recommendations](https://img.shields.io/badge/built%20with-open--wc-blue.svg)
 
-[![Built with open-wc recommendations](https://img.shields.io/badge/built%20with-open--wc-blue.svg)](https://github.com/open-wc)
+## Configuración
 
-## Quickstart
-
-To get started:
+Instala dependencias:
 
 ```bash
-npm init @open-wc
-# requires node 10 & npm 6 or higher
+# con npm
+npm install
+
+# o con Yarn
+yarn
 ```
 
-## Scripts
+## Inicio 
+
+Una vez instladas las dependencias lanzamos el siguiente comando para iniciar la aplicación:
+```bash
+# con npm
+npm run start
+
+# o con Yarn
+yarn start
+```
+
+Esto abrirá una nueva ventana en su navegador con la aplicación.
+
+Esta aplicación usa como backend el localStorage del navegador asi que tendremos que lanzar el siguiente script desde la consola del mismo para poder probar el login:
+
+```javascript
+localStorage.setItem('lit@login.com', JSON.stringify({
+      email: 'lit@login.com',
+      password: '1234',
+      lastConnection: 1627397027594
+    }));
+```
+
+Esto nos guardará en el localStorage un usuario cuya key es el email con la información que necesitamos para nuestra aplicación.
+## Scripts por defecto
 
 - `start` runs your app for development, reloading on file changes
 - `start:build` runs your app after it has been built using the build command
 - `build` builds your app and outputs it in your `dist` directory
 - `test` runs your test suite with Web Test Runner
 - `lint` runs the linter for your project
-
-## Tooling configs
-
-For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
-
-If you customize the configuration a lot, you can consider moving them to individual files.
