@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit';
+import { navigator } from "lit-element-router";
 import '../../atoms/button/lit-button.js';
 import '../../molecules/counter/lit-counter.js';
-import { navigateTo } from '../../../utils/navigation.js';
 
-export class LitHome extends LitElement {
+export class LitHome extends navigator(LitElement) {
   static get properties() {
     return {
       user: { type: Object },
@@ -18,15 +18,9 @@ export class LitHome extends LitElement {
 
   constructor() {
     super();
-    // this.user = JSON.parse(localStorage.getItem('fran@fran.com'));
     console.log('constructor', this.user);
 
   }
-
-  // connectedCallback() {
-  //   super.connectedCallback();
-  //   console.log('añadido', this.user);
-  // }
 
   updated(changedProperty) {
     console.log('updated', changedProperty, this.user);
@@ -41,11 +35,13 @@ export class LitHome extends LitElement {
 
 
   logout() {
-    localStorage.setItem('lit@login.com', JSON.stringify({
+
+    localStorage.setItem(this.user?.email, JSON.stringify({
       email: this.user?.email,
       password: this.user?.password,
       lastConnection: new Date().getTime(),
     }));
-    navigateTo('/');
+    console.log('logout', JSON.parse(localStorage.getItem(this.user.email)))
+    this.navigate('');
   }
 }

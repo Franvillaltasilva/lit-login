@@ -1,14 +1,18 @@
 import { LitElement, html, css } from 'lit';
 import './components/pages/login/lit-login.js';
 import './components/pages/home/lit-home.js';
-import { router } from './router/index.js';
+import './router/lit-router-outlet.js';
+// import { router } from './router/index.js';
+import { router } from "lit-element-router";
 
-export class App extends LitElement {
+export class App extends router(LitElement) {
   static get properties() {
     return {
       route: { type: String },
       params: { type: Object },
       query: { type: Object },
+      data: { type: Object },
+      user: { type: Object },
     };
   }
 
@@ -46,42 +50,71 @@ export class App extends LitElement {
     `;
   }
 
+  static get routes() {
+    return [
+      {
+        name: "login",
+        pattern: "",
+      },
+      {
+        name: "home",
+        pattern: "home"
+      },
+    ];
+  }
+
 
   constructor() {
     super();
     this.user = {};
-    this.router = router(this, {
-      '/': () => html`<lit-login @login=${this.getUser}></lit-login>`,
-      '/home': () => html`<lit-home user=${this.user}></lit-home>`,
-    });
+    this.route = "";
+    this.params = {};
+    this.query = {};
+    this.data = {};
+    // this.router = router(this, {
+    //   '/': () => html`<lit-login @login=${this.getUser}></lit-login>`,
+    //   '/home': () => html`<lit-home .user=${this.user}></lit-home>`,
+    // });
+  }
+
+  router(route, params, query, data) {
+    this.route = route;
+    this.params = params;
+    this.query = query;
+    this.data = data;
+    console.log(route, params, query, data);
   }
 
   render() {
     return html`
-      <!-- <main>
-        ${this.router.render({
-          pending: () => html`<p>loading page...</p>`,
-          complete: result => result,
-        })}
-      </main> -->
 
-      <lit-login @login=${this.getUser}></lit-login>
-      <lit-home .user=${this.user}></lit-home>
+      <lit-router-outlet active-route=${this.route}>
+        <lit-login route="login" @login=${this.getUser}></lit-login>
+        <lit-home route="home" .user=${this.user}></lit-home>
+        <h1 route="not-found">No se encontró</h1>
+      </lit-router-outlet>
+
     `;
   }
 
   getUser(event) {
     this.user = {...event.detail.value};
     console.log('DESDE APP - ', this.user);
-    debugger;
   }
 
 }
 
 /*
-localStorage.setItem('fran@fran.com', JSON.stringify({
-      email: 'fran@fran.com',
+localStorage.setItem('lit@login.com', JSON.stringify({
+      email: 'lit@login.com',
       password: '1234',
-      lastConnection: 1627397027594
+      lastConnection: 1627065836
     }));
+
+    <!-- <main>
+        ${this.router.render({
+          pending: () => html`<p>loading page...</p>`,
+          complete: result => result,
+        })}
+      </main> -->
 */

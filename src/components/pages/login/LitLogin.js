@@ -1,12 +1,12 @@
 import { LitElement, html, css } from 'lit';
-import { navigateTo } from '../../../utils/navigation.js';
+import { navigator } from "lit-element-router";
 import '../../atoms/button/lit-button.js';
 import '../../atoms/input/lit-input.js';
 import '../../atoms/icon/lit-icon.js';
 import '../../molecules/counter/LitCounter.js';
 
 // initRouter(locationChange);
-export class LitLogin extends LitElement {
+export class LitLogin extends navigator(LitElement) {
   static get properties() {
     return {
       email: { type: String },
@@ -51,8 +51,12 @@ export class LitLogin extends LitElement {
 
   constructor() {
     super();
-    this.email = 'fran@fran.com';
+    this.email = 'lit@login.com';
     this.password = '1234';
+  }
+
+  updated(changedProperty) {
+    console.log('updated', changedProperty, this.user);
   }
 
   render() {
@@ -87,6 +91,7 @@ export class LitLogin extends LitElement {
 
   login() {
     const user = JSON.parse(localStorage.getItem(this.email));
+    console.log('LOGIN - ', user);
     const validUser = user?.email === this.email && user?.password === this.password;
     if (validUser) {
       this.dispatchEvent(new CustomEvent('login', {
@@ -94,7 +99,7 @@ export class LitLogin extends LitElement {
         composed: true,
         detail: { value: user },
       }));
-      //navigateTo('./home');
+      this.navigate('./home');
     } else {
       console.error('Login failed');
     }

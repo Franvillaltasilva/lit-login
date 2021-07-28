@@ -44,15 +44,22 @@ export class LitCounter extends LitElement {
     this.title = 'Welcome!';
     this.subtitle = 'The last time you access was';
     this.lastConnection = 0;
+    console.log('se crea counter')
 
   }
 
   connectedCallback() {
-    super.connectedCallback()
+    super.connectedCallback();
     const now = new Date();
     const last = new Date(this.lastConnection);
+    console.log('now', now);
+    console.log('last', last);
+    console.log('this.lastConnection', this.lastConnection);
     this.diff = timeDifference(now, last);
 
+  }
+
+  updated(changedProperty) {
   }
 
   render() {
