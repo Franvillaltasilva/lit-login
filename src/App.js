@@ -1,107 +1,35 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
+import { Router } from '@vaadin/router';
 import './components/pages/login/lit-login.js';
 import './components/pages/home/lit-home.js';
-import './router/lit-router-outlet.js';
-// import { router } from './router/index.js';
-import { router } from "lit-element-router";
 
-export class App extends router(LitElement) {
-  static get properties() {
-    return {
-      route: { type: String },
-      params: { type: Object },
-      query: { type: Object },
-      data: { type: Object },
-      user: { type: Object },
-    };
-  }
-
-  static get styles() {
-    return css`
-      :host {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: calc(10px + 2vmin);
-        color: #1a2b42;
-        max-width: 960px;
-        margin: 0 auto;
-        text-align: center;
-        background-color: var(--lit-login-background-color);
-      }
-
-      main {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .app-footer {
-        font-size: calc(12px + 0.5vmin);
-        align-items: center;
-      }
-
-      .app-footer a {
-        margin-left: 5px;
-      }
-    `;
-  }
-
-  static get routes() {
-    return [
-      {
-        name: "login",
-        pattern: "",
-      },
-      {
-        name: "home",
-        pattern: "home"
-      },
-    ];
-  }
-
+export class App extends LitElement {
 
   constructor() {
     super();
-    this.user = {};
-    this.route = "";
-    this.params = {};
-    this.query = {};
-    this.data = {};
-    // this.router = router(this, {
-    //   '/': () => html`<lit-login @login=${this.getUser}></lit-login>`,
-    //   '/home': () => html`<lit-home .user=${this.user}></lit-home>`,
-    // });
+    const router = new Router(document.getElementById('outlet'));
+    router.setRoutes([
+      {
+        path: '/',
+        component: 'lit-login'
+      },
+      {
+        path:'/home/:user',
+        component: 'lit-home',
+      },
+      {
+        path: '(.*)',
+        component: 'lit-login'
+    },
+    ]);
   }
 
-  router(route, params, query, data) {
-    this.route = route;
-    this.params = params;
-    this.query = query;
-    this.data = data;
-    console.log(route, params, query, data);
-  }
 
   render() {
     return html`
-
-      <lit-router-outlet active-route=${this.route}>
-        <lit-login route="login" @login=${this.getUser}></lit-login>
-        <lit-home route="home" .user=${this.user}></lit-home>
-        <h1 route="not-found">No se encontró</h1>
-      </lit-router-outlet>
-
+      <div id="outlet"></div>
     `;
   }
-
-  getUser(event) {
-    this.user = {...event.detail.value};
-    console.log('DESDE APP - ', this.user);
-  }
-
 }
 
 /*

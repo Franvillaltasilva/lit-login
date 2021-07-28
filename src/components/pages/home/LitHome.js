@@ -1,9 +1,9 @@
 import { LitElement, html, css } from 'lit';
-import { navigator } from "lit-element-router";
+import { Router } from '@vaadin/router';
 import '../../atoms/button/lit-button.js';
 import '../../molecules/counter/lit-counter.js';
 
-export class LitHome extends navigator(LitElement) {
+export class LitHome extends LitElement {
   static get properties() {
     return {
       user: { type: Object },
@@ -12,18 +12,26 @@ export class LitHome extends navigator(LitElement) {
 
   static get styles() {
     return css`
-
+    :host {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: calc(10px + 2vmin);
+      color: #1a2b42;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+      background-color: var(--lit-login-background-color);
+    }
     `;
   }
 
-  constructor() {
-    super();
-    console.log('constructor', this.user);
-
-  }
-
-  updated(changedProperty) {
-    console.log('updated', changedProperty, this.user);
+  connectedCallback() {
+    super.connectedCallback();
+    const param = window.location.pathname.split(':')[1];
+    this.user = JSON.parse(localStorage.getItem(param));
   }
 
   render() {
@@ -35,13 +43,11 @@ export class LitHome extends navigator(LitElement) {
 
 
   logout() {
-
     localStorage.setItem(this.user?.email, JSON.stringify({
       email: this.user?.email,
       password: this.user?.password,
       lastConnection: new Date().getTime(),
     }));
-    console.log('logout', JSON.parse(localStorage.getItem(this.user.email)))
-    this.navigate('');
+    Router.go('');
   }
 }

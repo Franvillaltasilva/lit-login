@@ -1,17 +1,16 @@
 import { LitElement, html, css } from 'lit';
-import { navigator } from "lit-element-router";
+import { Router } from '@vaadin/router';
 import '../../atoms/button/lit-button.js';
 import '../../atoms/input/lit-input.js';
 import '../../atoms/icon/lit-icon.js';
 import '../../molecules/counter/LitCounter.js';
 
 // initRouter(locationChange);
-export class LitLogin extends navigator(LitElement) {
+export class LitLogin extends LitElement {
   static get properties() {
     return {
       email: { type: String },
       password: { type: String },
-      lastConnection: 1627397027594,
     };
   }
 
@@ -51,12 +50,8 @@ export class LitLogin extends navigator(LitElement) {
 
   constructor() {
     super();
-    this.email = 'lit@login.com';
-    this.password = '1234';
-  }
-
-  updated(changedProperty) {
-    console.log('updated', changedProperty, this.user);
+    this.email = '';
+    this.password = '';
   }
 
   render() {
@@ -91,7 +86,6 @@ export class LitLogin extends navigator(LitElement) {
 
   login() {
     const user = JSON.parse(localStorage.getItem(this.email));
-    console.log('LOGIN - ', user);
     const validUser = user?.email === this.email && user?.password === this.password;
     if (validUser) {
       this.dispatchEvent(new CustomEvent('login', {
@@ -99,7 +93,7 @@ export class LitLogin extends navigator(LitElement) {
         composed: true,
         detail: { value: user },
       }));
-      this.navigate('./home');
+      Router.go(`./home/:${this.email}`);
     } else {
       console.error('Login failed');
     }
