@@ -1,10 +1,9 @@
 import { LitElement, html, css } from 'lit';
+import { navigateTo } from '../../../utils/navigation.js';
 import '../../atoms/button/lit-button.js';
 import '../../atoms/input/lit-input.js';
 import '../../atoms/icon/lit-icon.js';
 import '../../molecules/counter/LitCounter.js';
-import { navigateTo } from '../../../utils/navigation.js';
-
 
 // initRouter(locationChange);
 export class LitLogin extends LitElement {
@@ -57,36 +56,44 @@ export class LitLogin extends LitElement {
   }
 
   render() {
+    const disabledButton =
+      this.email?.length === 0 || this.password?.length === 0;
+
     return html`
       <lit-icon></lit-icon>
-      <lit-input @input=${this.inputEmail} .value=${this.email} placeholder="Email"></lit-input>
-      <lit-input @input=${this.inputPassword} .value=${this.password} placeholder="Password" type="password"></lit-input>
-      <lit-button @click="${this.login}">Log In</lit-button>
+      ${this.email} ${this.password}
+      <lit-input
+        .value=${this.email}
+        @change=${this.changeEmail}
+        placeholder="Email"
+      ></lit-input>
+      <lit-input
+        .value=${this.password}
+        @change=${this.changePassword}
+        placeholder="Password"
+        type="password"
+      ></lit-input>
+      <lit-button ?disabled=${disabledButton} @click="${this.login}"
+        >Log In</lit-button
+      >
     `;
   }
 
-  inputEmail(event) {
+  changeEmail(event) {
     this.email = event.detail.value;
   }
 
-  inputPassword(event) {
+  changePassword(event) {
     this.password = event.detail.value;
   }
 
   login() {
-    if ( localStorage.getItem(this.email) ) {
+    console.log('email', this.email);
+    console.log('password', this.password);
+    if (localStorage.getItem(this.email)) {
       navigateTo('./home');
     } else {
-      console.error('No existe usuario con dicho email')
+      console.error('No existe usuario con dicho email');
     }
   }
 }
-
-/*
-localStorage.setItem('fran@fran.com', JSON.stringify({
-  email: 'fran@fran.com',
-  password: '1234',
-  lastConnection: 1627397027594
-})
-);
-*/

@@ -41,16 +41,20 @@ export class LitInput extends LitElement {
         type=${this.type}
         placeholder=${this.placeholder}
         .value=${this.value}
-        @input=${this.inputValue}
+        @input=${this.inputChange}
       />
     `;
   }
 
-  inputValue(event) {
-    this.dispatchEvent(new CustomEvent('input', {
-      bubbles: true,
-      composed: true,
-      detail: { value: event.target.value },
-    }));
+  inputChange(event) {
+    this.value = event.target.value;
+    console.log('HIJO', this.value);
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        bubbles: true,
+        composed: true,
+        detail: { value: this.value },
+      })
+    );
   }
 }

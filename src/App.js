@@ -3,15 +3,6 @@ import './components/pages/login/lit-login.js';
 import './components/pages/home/lit-home.js';
 import { router, routes } from './router/index.js';
 
-// const locationChange = (location) => {
-//   const { pathName } = location;
-//   const urlParts = pathName.split('/');
-//   urlParts.shift();
-//   console.log(urlParts);
-//   debugger;
-// }
-
-// initRouter(locationChange);
 export class App extends LitElement {
   static get properties() {
     return {
@@ -55,25 +46,6 @@ export class App extends LitElement {
     `;
   }
 
-  static get routes() {
-    return [
-      {
-        name: "login",
-        pattern: "login",
-        data: { title: "login" },
-      },
-      {
-        name: "home",
-        pattern: "home",
-        data: { title: "home" },
-      },
-      {
-        name: "not-found",
-        pattern: "*",
-      },
-    ];
-  }
-
   constructor() {
     super();
     this.router = router(this, routes);
@@ -84,9 +56,17 @@ export class App extends LitElement {
       <main>
         ${this.router.render({
           pending: () => html`<p>loading page...</p>`,
-          complete: (result) => result,
+          complete: result => result,
         })}
       </main>
     `;
   }
 }
+
+/*
+localStorage.setItem('fran@fran.com', JSON.stringify({
+      email: 'fran@fran.com',
+      password: '1234',
+      lastConnection: 1627397027594
+    }));
+*/
