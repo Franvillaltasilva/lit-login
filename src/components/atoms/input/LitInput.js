@@ -48,7 +48,6 @@ export class LitInput extends LitElement {
 
   inputChange(event) {
     this.value = event.target.value;
-    console.log('HIJO', this.value);
     this.dispatchEvent(
       new CustomEvent('change', {
         bubbles: true,

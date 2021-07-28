@@ -11,7 +11,7 @@ export class LitLogin extends LitElement {
     return {
       email: { type: String },
       password: { type: String },
-      user: { type: Object },
+      lastConnection: 1627397027594,
     };
   }
 
@@ -56,12 +56,10 @@ export class LitLogin extends LitElement {
   }
 
   render() {
-    const disabledButton =
-      this.email?.length === 0 || this.password?.length === 0;
+    const disabledButton = this.email?.length === 0 || this.password?.length === 0;
 
     return html`
       <lit-icon></lit-icon>
-      ${this.email} ${this.password}
       <lit-input
         .value=${this.email}
         @change=${this.changeEmail}
@@ -88,12 +86,17 @@ export class LitLogin extends LitElement {
   }
 
   login() {
-    console.log('email', this.email);
-    console.log('password', this.password);
-    if (localStorage.getItem(this.email)) {
-      navigateTo('./home');
+    const user = JSON.parse(localStorage.getItem(this.email));
+    const validUser = user?.email === this.email && user?.password === this.password;
+    if (validUser) {
+      this.dispatchEvent(new CustomEvent('login', {
+        bubbles: true,
+        composed: true,
+        detail: { value: user },
+      }));
+      //navigateTo('./home');
     } else {
-      console.error('No existe usuario con dicho email');
+      console.error('Login failed');
     }
   }
 }

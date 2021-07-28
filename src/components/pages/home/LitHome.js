@@ -18,21 +18,32 @@ export class LitHome extends LitElement {
 
   constructor() {
     super();
-    this.user = JSON.parse(localStorage.getItem('fran@fran.com'));
+    // this.user = JSON.parse(localStorage.getItem('fran@fran.com'));
+    console.log('constructor', this.user);
 
+  }
+
+  // connectedCallback() {
+  //   super.connectedCallback();
+  //   console.log('añadido', this.user);
+  // }
+
+  updated(changedProperty) {
+    console.log('updated', changedProperty, this.user);
   }
 
   render() {
     return html`
-      <lit-counter lastConnection=${this.user.lastConnection}></lit-counter>
+      <lit-counter lastConnection=${this.user?.lastConnection}></lit-counter>
       <lit-button @click="${this.logout}">Logout</lit-button>
     `;
   }
 
+
   logout() {
-    localStorage.setItem('fran@fran.com', JSON.stringify({
-      email: this.user.email,
-      password: this.user.password,
+    localStorage.setItem('lit@login.com', JSON.stringify({
+      email: this.user?.email,
+      password: this.user?.password,
       lastConnection: new Date().getTime(),
     }));
     navigateTo('/');

@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import './components/pages/login/lit-login.js';
 import './components/pages/home/lit-home.js';
-import { router, routes } from './router/index.js';
+import { router } from './router/index.js';
 
 export class App extends LitElement {
   static get properties() {
@@ -46,21 +46,36 @@ export class App extends LitElement {
     `;
   }
 
+
   constructor() {
     super();
-    this.router = router(this, routes);
+    this.user = {};
+    this.router = router(this, {
+      '/': () => html`<lit-login @login=${this.getUser}></lit-login>`,
+      '/home': () => html`<lit-home user=${this.user}></lit-home>`,
+    });
   }
 
   render() {
     return html`
-      <main>
+      <!-- <main>
         ${this.router.render({
           pending: () => html`<p>loading page...</p>`,
           complete: result => result,
         })}
-      </main>
+      </main> -->
+
+      <lit-login @login=${this.getUser}></lit-login>
+      <lit-home .user=${this.user}></lit-home>
     `;
   }
+
+  getUser(event) {
+    this.user = {...event.detail.value};
+    console.log('DESDE APP - ', this.user);
+    debugger;
+  }
+
 }
 
 /*
