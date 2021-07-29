@@ -14,16 +14,15 @@ export class LitHome extends LitElement {
     return css`
     :host {
       min-height: 100vh;
+      max-width: 960px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      font-size: calc(10px + 2vmin);
-      color: #1a2b42;
-      max-width: 960px;
-      margin: 0 auto;
+      align-items: center;
       text-align: center;
-      background-color: var(--lit-login-background-color);
+      font-size: 1.5em;
+      color: #1a2b42;
     }
     `;
   }
@@ -37,7 +36,7 @@ export class LitHome extends LitElement {
   render() {
     return html`
       <lit-counter lastConnection=${this.user?.lastConnection}></lit-counter>
-      <lit-button @click="${this.logout}">Logout</lit-button>
+      <lit-button size="small" @click="${this.logout}">Logout</lit-button>
     `;
   }
 

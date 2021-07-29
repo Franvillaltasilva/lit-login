@@ -31,18 +31,3 @@ export class App extends LitElement {
     `;
   }
 }
-
-/*
-localStorage.setItem('lit@login.com', JSON.stringify({
-      email: 'lit@login.com',
-      password: '1234',
-      lastConnection: 1627065836
-    }));
-
-    <!-- <main>
-        ${this.router.render({
-          pending: () => html`<p>loading page...</p>`,
-          complete: result => result,
-        })}
-      </main> -->
-*/

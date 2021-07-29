@@ -12,7 +12,7 @@ export class LitInput extends LitElement {
   static get styles() {
     return css`
       input {
-        margin-bottom: 10px;
+        margin-bottom: 16px;
         outline: none;
         border: 0px;
         border-bottom: 2px solid gray;

@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'lit';
 export class LitButton extends LitElement {
   static get properties() {
     return {
-      disabled: { type: Boolean }
+      size: { type: String },
     };
   }
 
@@ -12,32 +12,35 @@ export class LitButton extends LitElement {
       button {
         outline: none;
         border: 0px;
-        min-height: 44px;
-        min-width: 244px;
         background-color: #004481;
         color: #fff;
         padding: 12px 10px;
       }
 
-      button:hover {
-        background-color: #0160b3;
+      .medium {
+        min-height: 44px;
+        min-width: 244px;
       }
 
-      button:disabled {
-        background-color: #adaeae;
-        cursor: default;
+      .small {
+        min-height: 40px;
+        min-width: 120px;
+      }
+
+      button:hover {
+        background-color: #0160b3;
       }
     `;
   }
 
   constructor() {
     super();
-    this.disabled = false;
+    this.size = 'medium';
   }
 
   render() {
     return html`
-      <button ?disabled=${this.disabled}>
+      <button class=${this.size}>
         <slot></slot>
       </button>
     `;
